@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Do you love me?</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container" id="questionContainer">
+    <h1>Do you love me?</h1>
+    <div class="buttons">
+      <button id="yesBtn">Yes 💖</button>
+      <button id="noBtn">No 😢</button>
+    </div>
+  </div>
+
+  <!-- วิดีโอ -->
+  <div class="video-container" id="videoContainer">
+    <video id="myVideo" src="my video/BABI.mp4" controls></video>
+  </div>
+
+  <!-- เพลง -->
+  
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const video = document.getElementById("myVideo");
+    const song = document.getElementById("mySong");
+    const questionContainer = document.getElementById("questionContainer");
+    const videoContainer = document.getElementById("videoContainer");
+
+    // ถ้ากด No → ปุ่ม Yes จะใหญ่ขึ้น
+    noBtn.addEventListener("click", () => {
+      let currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
+      yesBtn.style.fontSize = (currentSize + 5) + "px";
+    });
+
+    // ถ้ากด Yes → ซ่อนคำถามแล้วเล่นวิดีโอ + เพลง
+    yesBtn.addEventListener("click", () => {
+      questionContainer.style.display = "none";
+      videoContainer.style.display = "block";
+      song.play();
+      video.play();
+    });
+
+    // เมื่อวิดีโอจบ → กลับไปที่คำถามใหม่
+    video.addEventListener("ended", () => {
+      videoContainer.style.display = "none";
+      questionContainer.style.display = "block";
+      video.currentTime = 0;  // รีเซ็ตวิดีโอ
+      song.pause();
+      song.currentTime = 0;   // รีเซ็ตเพลง
+    });
+  </script>
+</body>
+</html>
